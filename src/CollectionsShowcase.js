@@ -12,7 +12,7 @@ class CollectionShowcase extends React.Component {
       return (
         <APIContext.Consumer>
           {
-            ({ removeFromCollection, rateMovie, collections, ratings }) =>
+            ({ removeFromCollection, rateMovie, collections }) =>
             <div className="collections__wrapper">
               { collections[0] ?
               (
@@ -23,7 +23,7 @@ class CollectionShowcase extends React.Component {
                         ( 
                           <Showcase items={collection.films} render={movie =>
                               <Movie details={movie} >
-                              <RateMovie movie={movie.id}  fn={rateMovie} rating={ratings[movie.id]} />
+                              <RateMovie movie={movie.id} collection={collection.title} fn={rateMovie} rating={collection.ratings[movie.id]} />
                               <button className="movie__button" onClick={() => removeFromCollection(collection.title, movie.id)} >ELIMINAR DE LA COLECCIÓN</button>
                               </Movie>
                           } />
@@ -35,7 +35,7 @@ class CollectionShowcase extends React.Component {
                 )
               ): 
               (
-                <p className="no-found">There is no collections, try to add a collection clicking on the "Add to collection" button at Home</p>
+                <p className="no-found">There is no collections, try to add a collection clicking on the "Add to a collection" button at Home</p>
               ) }
             </div>
           }

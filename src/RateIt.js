@@ -8,7 +8,6 @@ import Nav from './Nav';
 
 class RateIt extends Component {
   state = {
-    ratings: JSON.parse(localStorage.getItem('ratings')) || [],
     collections: JSON.parse(localStorage.getItem('collections')) || [],
     currentMovie: []
   }
@@ -17,7 +16,6 @@ class RateIt extends Component {
     <APIContext.Provider value={{
         findMovies: this.findMovies,
         collections: this.state.collections,
-        ratings: this.state.ratings,
         currentMovie: this.state.currentMovie,
         activatePopup: this.activatePopup,
         closePopup: this.closePopup,
@@ -63,7 +61,8 @@ class RateIt extends Component {
                 ...previousState.collections,
                 {
                     title: newCollectionLowerCase,
-                    films: []
+                    films: [],
+                    ratings: {}
                 }
             ]
         };
@@ -120,6 +119,7 @@ class RateIt extends Component {
                 ...collectionsToNotUpdate,
                 {
                     title: collectionToUpdate.title,
+                    ratings: collectionToUpdate.ratings,
                     films: [
                         ...otherMovies,
                         currentMovie
@@ -157,6 +157,7 @@ class RateIt extends Component {
             ...collectionsToNotUpdate,
             {
                 title: collectionToUpdate.title,
+                ratings: collectionToUpdate.ratings,
                 films: [
                     ...collectionWithoutTheFilm
                 ]
@@ -171,22 +172,36 @@ class RateIt extends Component {
         JSON.stringify(this.state.collections)
       ) 
   }
-  rateMovie = async (movieID, rating) => {
+  rateMovie = async (movieID, collectionTitle, rating) => {
     const previousState = this.state;
+
+    const collectionToUpdate = previousState.collections.find(collection =>
+      collection.title === collectionTitle
+    );
+    const collectionsToNotUpdate = previousState.collections.filter(collection => 
+        collection.title !== collectionTitle
+    );
     const nextState = {
       ...previousState,
-      ratings: {
-        ...previousState.ratings,
-        [movieID]: rating
-      }
-    }
-    
-    await this.setState(nextState);
+      collections: [
+          ...collectionsToNotUpdate,
+          {
+              title: collectionToUpdate.title,
+              ratings: {
+                  ...collectionToUpdate.ratings,
+                  [movieID]: rating
+              },
+              films: collectionToUpdate.films
+          }
+      ]
+  };
+
+  await this.setState(nextState);
   
     localStorage.setItem(
-      'ratings',
-       JSON.stringify(this.state.ratings)
-    );
+      'collections',
+      JSON.stringify(this.state.collections)
+    ) 
   }
 
 }

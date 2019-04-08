@@ -1,7 +1,6 @@
 import React from 'react';
 import CollectionPopUp from './CollectionPopUp';
 import APIContext from './APIContext';
-import RateMovie from './RateMovie';
 
 import './css/Single.css';
 
@@ -20,7 +19,7 @@ class Single extends React.Component {
         return (
         <APIContext.Consumer>
             {
-            ({ activatePopup, rateMovie, ratings }) => 
+            ({ activatePopup }) => 
         <>
           <CollectionPopUp />
           <article className="single"> 
@@ -32,7 +31,6 @@ class Single extends React.Component {
                     {this.state.movie.title}
                 </h2>
                 <div className="single__text" >
-                    <RateMovie movie={this.state.movie.id}  fn={rateMovie} rating={ratings[this.state.movie.id]} />
                     <div className="single__information">
                         <span>Puntuación:<p>{this.state.movie.vote_average}</p></span>
                         <span>Estreno: <p>{this.state.movie.release_date}</p></span>

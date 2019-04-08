@@ -24,7 +24,7 @@ class HomeShowcase extends React.Component {
         <APIContext.Consumer>
             {
             ({ activatePopup }) => 
-            this.state.movies ? (
+            this.state.movies[0] ? (
               <Showcase items={this.state.movies} render={movie =>
                 <Movie details={movie} >
                   <button className="movie__button" onClick={() => activatePopup(movie)} >ADD TO A COLLECTION</button>
@@ -44,7 +44,7 @@ class HomeShowcase extends React.Component {
         const queryString = `search/movie?query=${query}&`;
         const data = await this.props.findMovies(queryString);
         const {results} = data;
-        await this.setState({movies: results});
+        await this.setState({movies: results || []});
       }catch(e){
           console.error(e);
       }

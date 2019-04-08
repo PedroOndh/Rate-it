@@ -7,9 +7,9 @@ class RateMovie extends React.Component {
 
         for (let i = 1; i < 6; i++) {
             if (this.props.rating <= i) {
-                items.unshift(<span key={`${this.props.movie}-${i}`} className="movie__star movie__star--active" onClick={() => this.props.fn(this.props.movie, i)} >★</span>)
+                items.unshift(<span key={`${this.props.movie}-${i}`} className="movie__star movie__star--active" onClick={() => this.props.fn(this.props.movie, this.props.collection, i)} >★</span>)
             }else{
-                items.unshift(<span key={`${this.props.movie}-${i}`} className="movie__star" onClick={() => this.props.fn(this.props.movie, i)} >★</span>)
+                items.unshift(<span key={`${this.props.movie}-${i}`} className="movie__star" onClick={() => this.props.fn(this.props.movie, this.props.collection, i)} >★</span>)
             }
         }
 
