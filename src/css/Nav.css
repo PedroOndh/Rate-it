@@ -1,0 +1,21 @@
+nav.menu ul {
+    padding: 1rem;
+    display: flex;
+    position: relative;
+    z-index: 1;
+    text-transform: uppercase;
+    font-weight: bold;
+    background: #63c0ce;}
+  
+  nav.menu ul li a{
+    padding: 1rem;
+    color: white;
+  }
+
+  .menu__link.menu__link--active{
+    border-bottom: 3px solid #63c0ce;
+  }
+
+.app__name {
+  color: rgba(255, 255, 255, 0.8);
+}

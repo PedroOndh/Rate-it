@@ -1,0 +1,131 @@
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    background: white;
+    padding: 2rem;
+    width: 90%;
+    top: 5%;
+    left: 5%;
+    -webkit-box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.5);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .popup__text {
+      margin: 1rem 1rem 2rem;
+  }
+  
+  .popup.popup--visible {
+    display: block;
+  }
+  
+  .popup li.popup__collection-element {
+    list-style: none;
+    text-transform: uppercase;
+    padding: 1rem;
+    border: 1px solid #bbb; 
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .popup span.popup__collection-delete {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .popup li.popup__collection-element.popup__collection-element--selected {
+    background: #63c0ce;  
+    border: 1px solid white;
+  }
+  
+  .popup .popup__button {
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .popup .popup__close-button {
+    position: absolute;
+    font-size: 1.4rem;
+    font-weight: bold;
+    top: 0.5rem;
+    right: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .popup__addnew {
+    padding: 1rem;
+    display: flex;
+    background: #bbb;
+    margin: 1rem 0;
+  }
+  
+  span.popup__addnew-plus {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  form.popup__addnew-form {
+    display: none;
+    width: 100%;
+    text-align: center;
+  }
+  
+  form.popup__addnew-form.popup__addnew-form--visible {
+    display: block;
+  }
+  
+  input.popup__addnew-input {
+    padding: 0.5rem;
+    margin: 1rem;
+    width: 80%;
+    border-radius: 0.5rem;
+    border: 1px solid #eee;
+    box-shadow: inset 0px 10px 10px 0px rgba(170,170,170,0.5);
+  }
+  
+  button.popup__addnew-button {
+    background: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  button.popup__button {
+    background: #63c0ce;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+  }
+
+
+  
+/* Responsive */
+  
+  @media (min-width: 767px){
+    .popup{
+      width: 70%;
+      top: 20%;
+      left: 15%;
+    }
+  }
+  
+  @media (min-width: 1024px){
+    .popup{
+      width: 50%;
+      top: 20%;
+      left: 25%;
+      max-height: 60%;
+    }
+    input.popup__addnew-input {
+      width: 60%;
+    }
+  }

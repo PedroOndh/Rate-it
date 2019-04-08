@@ -1,0 +1,129 @@
+.no-found {
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+}
+
+ul.showcase {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+ul.showcase li.showcase__movie {
+  list-style: none;
+  width: 100%;
+}
+
+h2.movie__title {
+  font-family: 'Viga', sans-serif;
+  line-height: 1.5;
+  margin: 1rem;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.movie__rating {
+  margin: 1rem;
+  text-align: left;
+}
+
+article.movie {
+  width: 100%;
+  border: 1px solid white;
+  height: 100%;
+  text-align: center;
+  position: relative;
+  padding-bottom: 4rem;
+}
+
+article.movie img.movie__image {
+  width: 100%;
+}
+
+article.movie button.movie__button {
+  background: #63c0ce;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4rem;
+}
+
+
+.collection__title {
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.collection ul.showcase {
+  display: flex;
+  justify-content: center;
+}
+
+.collection ul.showcase li.showcase__movie {
+  width: 50%;
+}
+
+.movie__ratings {
+  padding: 1rem 0;
+}
+
+span.movie__star {
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+span.movie__star--active {
+  color: #63c0ce;
+}
+
+/* Responsive */
+
+@media (min-width: 450px){
+  ul.showcase li.showcase__movie {
+    width: 50%;
+  }
+  .collection ul.showcase li.showcase__movie {
+    width: 33.33%;
+  }
+}
+
+@media (min-width: 767px){
+  ul.showcase li.showcase__movie {
+    width: 33.33%;
+  }
+  .collection ul.showcase li.showcase__movie {
+    width: 25%;
+  }
+}
+
+@media (min-width: 1024px){
+  ul.showcase li.showcase__movie {
+    width: 25%;
+  }
+  .collection ul.showcase li.showcase__movie {
+    width: 16.666%;
+  }
+}
+
+@media (min-width: 1400px){
+  ul.showcase li.showcase__movie {
+    width: 20%;
+  }
+  .collection ul.showcase li.showcase__movie {
+    width: 12.5%;
+  }
+}
+
+@media (min-width: 1800px){
+  ul.showcase li.showcase__movie {
+    width: 16.666%;
+  }
+}
