@@ -39,6 +39,14 @@ class RateIt extends Component {
         console.error(error);
     }
   }
+  saveCollections = (state) => {
+    this.setState(state);
+  
+    localStorage.setItem(
+      'collections',
+      JSON.stringify(state.collections)
+    ) 
+  }
   activatePopup = movie => {
       let popup = document.querySelector('.popup');
       popup.classList.add('popup--visible');
@@ -47,7 +55,7 @@ class RateIt extends Component {
   closePopup = () => {
     document.querySelector('.popup').classList.remove('popup--visible');
   }
-  addNewCollection = async (newCollection) => {
+  addNewCollection = (newCollection) => {
     if(newCollection){
       const previousState = this.state;
       const newCollectionLowerCase = newCollection.toLowerCase();
@@ -65,16 +73,11 @@ class RateIt extends Component {
               }
         };
   
-        await this.setState(nextState);
-        
-          localStorage.setItem(
-            'collections',
-            JSON.stringify(this.state.collections)
-          ) 
+        this.saveCollections(nextState);
       }
     }
   }
-  removeCollection = async (collectionTitle) => {
+  removeCollection = (collectionTitle) => {
     const previousState = this.state;
     const previousCollections = previousState.collections;
     delete previousCollections[collectionTitle];
@@ -86,14 +89,9 @@ class RateIt extends Component {
         }
     };
 
-    await this.setState(nextState);
-
-    localStorage.setItem(
-        'collections',
-        JSON.stringify(this.state.collections)
-      ) 
+    this.saveCollections(nextState);
   }
-  addToCollection = async () => {
+  addToCollection = () => {
         
     const collectionForTheMovie = document.querySelector('.popup__collection-element--selected p');
     if (collectionForTheMovie){
@@ -120,19 +118,14 @@ class RateIt extends Component {
             }
         };
 
-        await this.setState(nextState);
-        
-        localStorage.setItem(
-            'collections',
-            JSON.stringify(this.state.collections)
-        ) 
+        this.saveCollections(nextState);
 
         this.setState({ currentMovie: [] })
 
         this.closePopup();
     }
   }
-  removeFromCollection = async (collectionTitle, movieID) => {
+  removeFromCollection = (collectionTitle, movieID) => {
     const previousState = this.state;
     const collectionWithoutTheFilm = previousState.collections[collectionTitle].films.filter(movie => 
         movie.id !== movieID
@@ -151,14 +144,10 @@ class RateIt extends Component {
         }
     };
 
-    await this.setState(nextState);
-    
-      localStorage.setItem(
-        'collections',
-        JSON.stringify(this.state.collections)
-      ) 
+    this.saveCollections(nextState);
+
   }
-  rateMovie = async (movieID, collectionTitle, rating) => {
+  rateMovie = (movieID, collectionTitle, rating) => {
     const previousState = this.state;
 
     const nextState = {
@@ -174,14 +163,10 @@ class RateIt extends Component {
               films: previousState.collections[collectionTitle].films
           }
       }
-  };
+    };
 
-  await this.setState(nextState);
-  
-    localStorage.setItem(
-      'collections',
-      JSON.stringify(this.state.collections)
-    ) 
+    this.saveCollections(nextState);
+
   }
 
 }
