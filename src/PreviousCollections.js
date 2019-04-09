@@ -2,14 +2,15 @@ import React from 'react';
 
 class PreviousCollections extends React.Component {
     render() {
+        var collectionTitles = Object.keys(this.props.collections);
         return (
             <ul className="popup__collections" >
             {
-                this.props.collections &&
-                this.props.collections.map(collection =>
-                  <li key={collection.title} title={collection.title} className='popup__collection-element' onClick={(event) => this.selectCollection(event)}>
-                    <p className="popup__collection-name">{collection.title}</p>
-                    <span className="popup__collection-delete" onClick={() => this.props.removeCollection(collection.title)}>×</span>
+                collectionTitles &&
+                collectionTitles.map(collection =>
+                  <li key={collection} title={collection} className='popup__collection-element' onClick={(event) => this.selectCollection(event)}>
+                    <p className="popup__collection-name">{collection}</p>
+                    <span className="popup__collection-delete" onClick={() => this.props.removeCollection(collection)}>×</span>
                   </li>
                 )
             }

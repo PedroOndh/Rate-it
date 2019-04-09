@@ -62,6 +62,10 @@ article.movie button.movie__button {
   text-transform: uppercase;
 }
 
+.collections__wrapper {
+  padding-bottom: 1rem;
+}
+
 .collection ul.showcase {
   display: flex;
   justify-content: center;

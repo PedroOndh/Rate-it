@@ -14,17 +14,17 @@ class CollectionShowcase extends React.Component {
           {
             ({ removeFromCollection, rateMovie, collections }) =>
             <div className="collections__wrapper">
-              { collections[0] ?
+              { collections ?
               (
-                collections.map(collection =>
-                    <div className="collection" key={`${collection.title}`}>
-                        <h2 className="collection__title">{collection.title}</h2>
-                        { collection.films[0] ? 
+                Object.keys(collections).map(key =>
+                    <div className="collection" key={`${collections[key].title}`}>
+                        <h2 className="collection__title">{collections[key].title}</h2>
+                        { collections[key].films[0] ? 
                         ( 
-                          <Showcase items={collection.films} render={movie =>
+                          <Showcase items={collections[key].films} render={movie =>
                               <Movie details={movie} >
-                              <RateMovie movie={movie.id} collection={collection.title} fn={rateMovie} rating={collection.ratings[movie.id]} />
-                              <button className="movie__button" onClick={() => removeFromCollection(collection.title, movie.id)} >ELIMINAR DE LA COLECCIÓN</button>
+                              <RateMovie movie={movie.id} collection={collections[key].title} fn={rateMovie} rating={collections[key].ratings[movie.id]} />
+                              <button className="movie__button" onClick={() => removeFromCollection(collections[key].title, movie.id)} >ELIMINAR DE LA COLECCIÓN</button>
                               </Movie>
                           } />
                         ):

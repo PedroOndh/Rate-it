@@ -8,7 +8,7 @@ import Nav from './Nav';
 
 class RateIt extends Component {
   state = {
-    collections: JSON.parse(localStorage.getItem('collections')) || [],
+    collections: JSON.parse(localStorage.getItem('collections')) || {},
     currentMovie: []
   }
   render() {
@@ -51,20 +51,18 @@ class RateIt extends Component {
     if(newCollection){
       const previousState = this.state;
       const newCollectionLowerCase = newCollection.toLowerCase();
-      const alreadyExist = previousState.collections.find(collection => 
-        collection.title === newCollectionLowerCase
-      );
-      if(!alreadyExist){
+
+      if(!previousState.collections[newCollectionLowerCase]){
         const nextState = {
           ...previousState,
-            collections: [
+            collections: {
                 ...previousState.collections,
-                {
+                [newCollectionLowerCase]: {
                     title: newCollectionLowerCase,
                     films: [],
                     ratings: {}
                 }
-            ]
+              }
         };
   
         await this.setState(nextState);
@@ -78,14 +76,14 @@ class RateIt extends Component {
   }
   removeCollection = async (collectionTitle) => {
     const previousState = this.state;
-    const collectionsToNotUpdate = previousState.collections.filter(collection => 
-        collection.title !== collectionTitle
-    );
+    const previousCollections = previousState.collections;
+    delete previousCollections[collectionTitle];
+
     const nextState = {
         ...previousState,
-        collections: [
-            ...collectionsToNotUpdate
-        ]
+        collections: {
+            ...previousCollections
+        }
     };
 
     await this.setState(nextState);
@@ -104,28 +102,22 @@ class RateIt extends Component {
         const currentMovie = this.state.currentMovie;
         const previousState = this.state;
         
-        const collectionToUpdate = previousState.collections.find(collection =>
-            collection.title === collectionTitle
-        );
-        const collectionsToNotUpdate = previousState.collections.filter(collection => 
-            collection.title !== collectionTitle
-        );
-        const otherMovies = collectionToUpdate.films.filter(film =>
+        const otherMovies = previousState.collections[collectionTitle].films.filter(film =>
             film.id !== currentMovie.id
         );
         const nextState = {
             ...previousState,
-            collections: [
-                ...collectionsToNotUpdate,
-                {
-                    title: collectionToUpdate.title,
-                    ratings: collectionToUpdate.ratings,
+            collections: {
+                ...previousState.collections,
+                [collectionTitle]: {
+                    title: previousState.collections[collectionTitle].title,
+                    ratings: previousState.collections[collectionTitle].ratings,
                     films: [
                         ...otherMovies,
                         currentMovie
                     ]
                 }
-            ]
+            }
         };
 
         await this.setState(nextState);
@@ -142,27 +134,21 @@ class RateIt extends Component {
   }
   removeFromCollection = async (collectionTitle, movieID) => {
     const previousState = this.state;
-    const collectionToUpdate = previousState.collections.find(collection =>
-        collection.title === collectionTitle
-    );
-    const collectionsToNotUpdate = previousState.collections.filter(collection => 
-        collection.title !== collectionTitle
-    );
-    const collectionWithoutTheFilm = collectionToUpdate['films'].filter(movie => 
+    const collectionWithoutTheFilm = previousState.collections[collectionTitle].films.filter(movie => 
         movie.id !== movieID
     );
     const nextState = {
         ...previousState,
-        collections: [
-            ...collectionsToNotUpdate,
-            {
-                title: collectionToUpdate.title,
-                ratings: collectionToUpdate.ratings,
+        collections: {
+            ...previousState.collections,
+            [collectionTitle]: {
+                title: collectionTitle,
+                ratings: previousState.collections[collectionTitle].ratings,
                 films: [
                     ...collectionWithoutTheFilm
                 ]
             }
-        ]
+        }
     };
 
     await this.setState(nextState);
@@ -175,25 +161,19 @@ class RateIt extends Component {
   rateMovie = async (movieID, collectionTitle, rating) => {
     const previousState = this.state;
 
-    const collectionToUpdate = previousState.collections.find(collection =>
-      collection.title === collectionTitle
-    );
-    const collectionsToNotUpdate = previousState.collections.filter(collection => 
-        collection.title !== collectionTitle
-    );
     const nextState = {
       ...previousState,
-      collections: [
-          ...collectionsToNotUpdate,
-          {
-              title: collectionToUpdate.title,
+      collections: {
+          ...previousState.collections,
+          [collectionTitle]: {
+              title: previousState.collections[collectionTitle].title,
               ratings: {
-                  ...collectionToUpdate.ratings,
+                  ...previousState.collections[collectionTitle].ratings,
                   [movieID]: rating
               },
-              films: collectionToUpdate.films
+              films: previousState.collections[collectionTitle].films
           }
-      ]
+      }
   };
 
   await this.setState(nextState);
