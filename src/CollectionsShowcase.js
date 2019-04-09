@@ -14,7 +14,7 @@ class CollectionShowcase extends React.Component {
           {
             ({ removeFromCollection, rateMovie, collections }) =>
             <div className="collections__wrapper">
-              { collections ?
+              { Object.keys(collections).length ?
               (
                 Object.keys(collections).map(key =>
                     <div className="collection" key={`${collections[key].title}`}>
